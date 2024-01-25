@@ -1,17 +1,15 @@
+interface dataCards {
+  id: number;
+  content: string;
+  labels: string[];
+  user?: string | null;
+}
+[];
 
-interface dataCards{
-    id: number,
-    content: string,
-    labels: string[],
-    user?: string
-
-}[]
-
-interface dataTask{
-    title: string, 
-    creatable: boolean,
-    done?: boolean,
-    cards?: dataCards[]
-}[]
-
-
+interface dataTask {
+  title: string;
+  creatable: boolean;
+  done?: boolean;
+  cards?: dataCards[];
+}
+[];
