@@ -3,29 +3,37 @@ import { useDrag, useDrop } from "react-dnd";
 
 import { Container, Label } from "./styles";
 
-export default function index(props: dataCards) {
+type DragItem = {
+  index: number;
+  id: string;
+  type: string;
+};
+
+export default function index(props: dataCards, index : number) {
   const ref = useRef();
 
   const [{ isDragging }, dragRef] = useDrag({
     type: "CARD",
-    item: { id: Number },
+    item: {index},
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
 
-  const [, dropRef] = useDrop({
+  const [, dropRef] = useDrop<DragItem>({
     accept: "CARD",
-    hover(item, monitor) {
-      console.log(item);
+    hover(item , monitor) {
+      console.log(item.index);
+      // console.log(index);
+      
     },
   });
 
   //Analisar o porque está dando erro nesse hook
-  // dragRef(dropRef(ref));
+  dragRef(dropRef(ref));
 
   return (
-    <Container ref={dragRef} isDragging={isDragging}>
+    <Container ref={dragRef} draggingEffect={isDragging }>
       <header>
         <Label color="#7159c1" />
       </header>

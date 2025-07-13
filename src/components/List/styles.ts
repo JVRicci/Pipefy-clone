@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
-export const Container = styled.div<{ done: boolean }>`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => (prop as string) !== "done",
+})<{ done: boolean }>`
   padding: 0 15px;
   height: 100%;
   flex: 0 0 320px;
 
-  opacity: ${(props: { done: boolean }) => (props.done ? 0.6 : 1)};
+  opacity: ${( props: { done: boolean }) => (props.done ? 0.6 : 1)};
 
   & + div {
     border: 1px solid rgba(0, 0, 0, 0.05);

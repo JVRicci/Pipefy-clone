@@ -1,6 +1,9 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.div<{ isDragging: boolean }>`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "draggingEffect" as string,
+})
+  <{ draggingEffect: boolean }>`
   position: relative;
   background: #fff;
   border-radius: 5px;
@@ -29,7 +32,7 @@ export const Container = styled.div<{ isDragging: boolean }>`
   }
 
   ${(props) =>
-    props.isDragging &&
+    props.draggingEffect &&
     css`
       border: 2px dashed rgba(0, 0, 0, 0.2);
       padding-top: 31px;
