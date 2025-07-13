@@ -9,12 +9,20 @@ type DragItem = {
   type: string;
 };
 
-export default function index(props: dataCards, index : number) {
-  const ref = useRef();
+type CardProps = {
+  id: number;       // aceitando number
+  content: string;
+  user?: string | null;
+  index: number;
+  labels: string[]; // adiciona se precisar
+};
+
+export default function Card({ id, content, user, index }: CardProps) {
+  const ref = useRef<HTMLDivElement>(null);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: "CARD",
-    item: {index},
+    item: { id, index, type: "CARD" },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -22,23 +30,22 @@ export default function index(props: dataCards, index : number) {
 
   const [, dropRef] = useDrop<DragItem>({
     accept: "CARD",
-    hover(item , monitor) {
-      console.log(item.index);
-      // console.log(index);
-      
+    hover(item, monitor) {
+      console.log("Hover", item.id, index);
+      // Aqui você pode colocar lógica para trocar os cards
     },
   });
 
-  //Analisar o porque está dando erro nesse hook
+  // Conectando os refs
   dragRef(dropRef(ref));
 
   return (
-    <Container ref={dragRef} draggingEffect={isDragging }>
+    <Container ref={ref} draggingEffect={isDragging}>
       <header>
         <Label color="#7159c1" />
       </header>
-      <p>{props.content}</p>
-      {props.user && (
+      <p>{content}</p>
+      {user && (
         <img
           src="https://avatars.githubusercontent.com/u/54457696?s=48&v=4"
           alt=""

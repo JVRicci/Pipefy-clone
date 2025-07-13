@@ -17,11 +17,9 @@ export default function index(props: dataTask) {
       </header>
 
       <ul>
-        {props.cards?.map((card, 
-        // index
+        {props.cards?.map((card, index
       ) => (
-          <Card key={card.id}
-            // index = {index}
+          <Card key={card.id} index={index}
             {...card} />
         ))}
       </ul>
